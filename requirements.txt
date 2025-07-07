@@ -1,0 +1,2 @@
+Flask>=2.0
+# En el futuro podríamos añadir más dependencias aquí, como Flask-SQLAlchemy, etc.

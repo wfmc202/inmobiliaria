@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Propiedades - Inmobiliaria XYZ{% endblock %}
+
+{% block content %}
+<h2>Propiedades Disponibles</h2>
+
+<div class="filtros">
+    <h3>Filtrar Propiedades</h3>
+    <label for="filtro-sector">Sector:</label>
+    <select id="filtro-sector">
+        <option value="">Todos</option>
+        <!-- Opciones de sectores se cargarán aquí por JS -->
+    </select>
+
+    <label for="filtro-tipo">Tipo:</label>
+    <select id="filtro-tipo">
+        <option value="">Ambos</option>
+        <option value="venta">Venta</option>
+        <option value="alquiler">Alquiler</option>
+    </select>
+
+    <label for="filtro-precio-min">Precio Mínimo:</label>
+    <input type="number" id="filtro-precio-min" placeholder="Ej: 50000">
+
+    <label for="filtro-precio-max">Precio Máximo:</label>
+    <input type="number" id="filtro-precio-max" placeholder="Ej: 200000">
+
+    <label for="filtro-keyword">Palabra Clave:</label>
+    <input type="text" id="filtro-keyword" placeholder="Ej: céntrico, luminoso...">
+
+    <button onclick="cargarPropiedades()">Aplicar Filtros</button>
+</div>
+
+<div id="lista-propiedades" class="propiedades-lista">
+    <!-- Las propiedades se cargarán aquí por JS -->
+    <p>Cargando propiedades...</p>
+</div>
+
+<!-- Modal para Detalles de Propiedad -->
+<div id="propiedadModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" onclick="cerrarModalDetalles()">&times;</span>
+    <div id="detallesPropiedadContenido">
+        <!-- Contenido del modal se carga aquí -->
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<script>
+    // Cargar sectores para el filtro y luego las propiedades al iniciar la página
+    window.onload = () => {
+        cargarSectoresFiltro(); // Definida en scripts.js
+        cargarPropiedades(); // Definida en scripts.js
+    };
+</script>
+{% endblock %}
