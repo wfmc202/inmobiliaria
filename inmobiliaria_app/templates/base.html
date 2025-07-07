@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inmobiliaria XYZ{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Inmobiliaria XYZ</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio (Propiedades)</a></li>
+                <li><a href="{{ url_for('vista_formulario_propiedad') }}">Publicar Propiedad</a></li>
+                <li><a href="{{ url_for('vista_admin_sectores_agentes') }}">Admin Sectores/Agentes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p style="text-align:center; margin-top: 20px; color: #666;">&copy; <span id="currentYear"></span> Inmobiliaria XYZ. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

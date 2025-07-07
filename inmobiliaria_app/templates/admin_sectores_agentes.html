@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Administrar Sectores y Agentes - Inmobiliaria XYZ{% endblock %}
+
+{% block content %}
+<h2>Administración de Sectores y Agentes</h2>
+
+<div id="mensaje-admin" class="success-message" style="display:none;"></div>
+<div id="error-admin" class="error-message" style="display:none;"></div>
+
+<section class="formulario-seccion">
+    <h3>Registrar Nuevo Sector</h3>
+    <form id="sectorForm" class="formulario">
+        <label for="nombre_sector">Nombre del Sector:</label>
+        <input type="text" id="nombre_sector" name="nombre_sector" required>
+
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" name="ciudad" required>
+
+        <label for="descripcion_sector">Descripción (opcional):</label>
+        <textarea id="descripcion_sector" name="descripcion"></textarea>
+
+        <button type="submit">Crear Sector</button>
+    </form>
+</section>
+
+<section class="lista-seccion">
+    <h3>Sectores Existentes</h3>
+    <ul id="lista-sectores" class="sectores-lista">
+        <!-- Sectores se cargarán aquí -->
+        <p>Cargando sectores...</p>
+    </ul>
+</section>
+
+<hr style="margin: 30px 0;">
+
+<section class="formulario-seccion">
+    <h3>Registrar Nuevo Agente</h3>
+    <form id="agenteForm" class="formulario">
+        <label for="nombre_agente">Nombre del Agente:</label>
+        <input type="text" id="nombre_agente" name="nombre" required>
+
+        <label for="email_agente">Email:</label>
+        <input type="email" id="email_agente" name="email" required>
+
+        <label for="telefono_agente">Teléfono (opcional):</label>
+        <input type="tel" id="telefono_agente" name="telefono">
+
+        <button type="submit">Registrar Agente</button>
+    </form>
+</section>
+
+<section class="lista-seccion">
+    <h3>Agentes Registrados</h3>
+    <ul id="lista-agentes" class="agentes-lista">
+        <!-- Agentes se cargarán aquí -->
+        <p>Cargando agentes...</p>
+    </ul>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<script>
+    window.onload = () => {
+        cargarSectoresAdmin(); // Definida en scripts.js
+        cargarAgentesAdmin(); // Definida en scripts.js
+    };
+
+    document.getElementById('sectorForm').addEventListener('submit', handleSubmitSector); // Definida en scripts.js
+    document.getElementById('agenteForm').addEventListener('submit', handleSubmitAgente);   // Definida en scripts.js
+</script>
+{% endblock %}

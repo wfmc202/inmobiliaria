@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Publicar Nueva Propiedad - Inmobiliaria XYZ{% endblock %}
+
+{% block content %}
+<h2 id="form-title">Publicar Nueva Propiedad</h2>
+<div id="mensaje-respuesta" class="success-message" style="display:none;"></div>
+<div id="error-respuesta" class="error-message" style="display:none;"></div>
+
+<form id="propiedadForm" class="formulario">
+    <input type="hidden" id="propiedadId" name="propiedadId">
+
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" name="descripcion"></textarea>
+
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" name="precio" step="0.01" required>
+
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" name="tipo" required>
+        <option value="venta">Venta</option>
+        <option value="alquiler">Alquiler</option>
+    </select>
+
+    <label for="sector">Sector:</label>
+    <select id="sector" name="sector_id" required>
+        <!-- Opciones de sectores se cargarán aquí -->
+    </select>
+
+    <label for="agente">Agente Inmobiliario:</label>
+    <select id="agente" name="agente_id" required>
+        <!-- Opciones de agentes se cargarán aquí -->
+    </select>
+
+    <label for="habitaciones">Habitaciones:</label>
+    <input type="number" id="habitaciones" name="habitaciones" min="0">
+
+    <label for="banos">Baños:</label>
+    <input type="number" id="banos" name="banos" min="0">
+
+    <label for="superficie">Superficie (m²):</label>
+    <input type="number" id="superficie" name="superficie" step="0.1" min="0">
+
+    <label for="direccion_completa">Dirección Completa:</label>
+    <input type="text" id="direccion_completa" name="direccion_completa">
+
+    <label for="imagenes">Imágenes (URLs separadas por coma):</label>
+    <input type="text" id="imagenes" name="imagenes" placeholder="http://ejemplo.com/img1.jpg, http://ejemplo.com/img2.jpg">
+    <small>Separe múltiples URLs de imágenes con una coma.</small>
+
+    <button type="submit">Guardar Propiedad</button>
+    <button type="button" onclick="limpiarFormulario()" style="background-color: #777; margin-left:10px;">Limpiar / Nuevo</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<script>
+    // Cargar datos necesarios para los <select> del formulario
+    window.onload = () => {
+        cargarSectoresParaFormulario(); // Definida en scripts.js
+        cargarAgentesParaFormulario(); // Definida en scripts.js
+
+        // Comprobar si hay un ID de propiedad en la URL (para edición)
+        const params = new URLSearchParams(window.location.search);
+        const propiedadIdParaEditar = params.get('editar_id');
+        if (propiedadIdParaEditar) {
+            cargarDatosPropiedadParaEdicion(propiedadIdParaEditar); // Definida en scripts.js
+        }
+    };
+
+    document.getElementById('propiedadForm').addEventListener('submit', handleSubmitPropiedad); // Definida en scripts.js
+</script>
+{% endblock %}
